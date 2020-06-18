@@ -19,8 +19,6 @@ parsed_itineraries["documents"].each do |itinerary|
   # Scrape webpage info of the given itinerary
   itinerary_url = "https://www.camptocamp.org/routes/#{itinerary["document_id"]}"
   p itinerary_url
-  html = open(itinerary_url)
-  doc = Nokogiri::HTML(html)
-  html = doc.css('p')
-  binding.pry
+  doc = Nokogiri::HTML(open(itinerary_url))
+  p doc.search("h1")
 end
