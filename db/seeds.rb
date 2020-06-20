@@ -10,15 +10,15 @@ require 'pry'
 
 # Seed for itineraries
 
-itineraries_url = 'https://api.camptocamp.org/routes?act=skitouring'
-raw_itineraries = open(itineraries_url).read
-parsed_itineraries = JSON.parse(raw_itineraries)
-parsed_itineraries["documents"].each do |itinerary|
-  title =  itinerary["locales"][0]["title_prefix"]
+parsed_itineraries = Nokogiri::XML(open('skitours.xml'))
+# parsed_itineraries["documents"].each do |itinerary|
+# title =  itinerary["locales"][0]["title_prefix"]
 
-  # Scrape webpage info of the given itinerary
-  itinerary_url = "https://www.camptocamp.org/routes/#{itinerary["document_id"]}"
-  p itinerary_url
-  doc = Nokogiri::HTML(open(itinerary_url))
-  p doc.search("h1")
-end
+#   # Scrape webpage info of the given itinerary
+#   p "https://www.camptocamp.org/routes/#{itinerary["document_id"]}"
+#   # http://www.outdooractive.com/api/project/api-dev-oa/tours/?key=yourtest-outdoora-ctiveapi
+#   # API activity filter for skitour : 8982367
+#   # API country filter for Switzerland: 1037953
+#   # http://www.outdooractive.com/api/project/api-dev-oa/filter/tour?area=1037953&category=8982367&key=yourtest-outdoora-ctiveapi
+#   Due to struggles with Nokogiri and XML-HTML parsing, this website was
+# end
