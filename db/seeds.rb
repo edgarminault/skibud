@@ -3,14 +3,36 @@
 #
 # Examples:
 
-require 'json'
-require 'open-uri'
-require 'nokogiri'
-require 'pry'
 
 # Seed for itineraries
 
-parsed_itineraries = Nokogiri::XML(open('skitours.xml'))
+require 'json'
+
+file = File.read(Rails.root.join('db', 'skitours_switzerland.json'))
+data = JSON.parse(file)
+
+
+data["beers"]["data"].each do |point|
+  p point["-id"]
+end
+
+# require 'nokogiri'
+# require 'open-uri'
+# url = "http://www.outdooractive.com/api/project/api-dev-oa/filter/tour?area=1037953&category=8982367&key=yourtest-outdoora-ctiveapi"
+# file = open(url).read
+# doc = Nokogiri::HTML(file)
+# doc.search("#folder")
+
+
+
+# xml = "<root>" + pre.text + "</root>"
+# contents = Nokogiri::XML(xml)
+# articles = contents.css('PubmedArticle')
+# puts contents.css('ArticleTitle').map{|x| x.content}.count
+
+
+# parsed_itineraries = File.read('skitours_switzerland.json')
+# hashed_itineraries = JSON.parse(parsed_itineraries)
 # parsed_itineraries["documents"].each do |itinerary|
 # title =  itinerary["locales"][0]["title_prefix"]
 
