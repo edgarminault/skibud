@@ -5,42 +5,32 @@
 
 
 # Seed for itineraries
-
 require 'json'
+require 'open-uri'
+require 'nokogiri'
 
-file = File.read(Rails.root.join('db', 'skitours_switzerland.json'))
-data = JSON.parse(file)
+# Import the JSON file in the seed
+path = File.join(File.dirname(__FILE__), "./seeds/skitours.json")
+itineraries = JSON.parse(File.read(path))["beers"]["data"]
+itineraries.each do |itinerary|
+  # Check for the outdoor active api route id and scrape the webpage.
+  itinerary_id = itinerary["-id"]
+  itinerary_id
+  itinerary_url = "https://www.outdooractive.com/en/route/#{itinerary_id}"
+
+  # Scrape the itinerary.
+  html_file = open(itinerary_url).read
+  html_doc = Nokogiri::HTML(html_file)
+
+  html_doc.search('.oax_inline').each do |element|
+    title = element.text.strip
+  end
+
+  html_doc.search('.oax_translated').each do |element|
+    description = element
+    p description
+  end
 
 
-data["beers"]["data"].each do |point|
-  p point["-id"]
 end
-
-# require 'nokogiri'
-# require 'open-uri'
-# url = "http://www.outdooractive.com/api/project/api-dev-oa/filter/tour?area=1037953&category=8982367&key=yourtest-outdoora-ctiveapi"
-# file = open(url).read
-# doc = Nokogiri::HTML(file)
-# doc.search("#folder")
-
-
-
-# xml = "<root>" + pre.text + "</root>"
-# contents = Nokogiri::XML(xml)
-# articles = contents.css('PubmedArticle')
-# puts contents.css('ArticleTitle').map{|x| x.content}.count
-
-
-# parsed_itineraries = File.read('skitours_switzerland.json')
-# hashed_itineraries = JSON.parse(parsed_itineraries)
-# parsed_itineraries["documents"].each do |itinerary|
-# title =  itinerary["locales"][0]["title_prefix"]
-
-#   # Scrape webpage info of the given itinerary
-#   p "https://www.camptocamp.org/routes/#{itinerary["document_id"]}"
-#   # http://www.outdooractive.com/api/project/api-dev-oa/tours/?key=yourtest-outdoora-ctiveapi
-#   # API activity filter for skitour : 8982367
-#   # API country filter for Switzerland: 1037953
-#   # http://www.outdooractive.com/api/project/api-dev-oa/filter/tour?area=1037953&category=8982367&key=yourtest-outdoora-ctiveapi
-#   Due to struggles with Nokogiri and XML-HTML parsing, this website was
-# end
+puts "countries are seeded"
