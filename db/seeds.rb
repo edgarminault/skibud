@@ -7,7 +7,11 @@
 # Seed for itineraries
 require 'json'
 require 'open-uri'
-require 'httparty'
+
+puts "Cleaning database..."
+Itinerary.destroy_all
+
+puts "Creating itineraries..."
 
 # Import the JSON file in the seed
 path = File.join(File.dirname(__FILE__), "./seeds/skitours.json")
@@ -38,8 +42,17 @@ itineraries.each do |itinerary|
 
   latitude = hashed_poi[1]["lat"]
   longitude = hashed_poi[1]["long"]
-  p "End of itinerary"
-  exit
+  itinerary = Itinerary.new(
+    title: title,
+    description: description,
+    latitude: latitude,
+    longitude: longitude,
+    poi: hashed_poi
+  )
+  itinerary.save!
+  p "Itinerary #{i} - #{title} - imported."
+  i += 1
+
 end
 puts "countries are seeded"
 

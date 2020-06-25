@@ -22,6 +22,8 @@ gem 'redis', '~> 4.0'
 
 gem 'nokogiri'
 gem 'pry'
+
+gem 'httparty'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
