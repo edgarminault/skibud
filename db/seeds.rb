@@ -22,13 +22,24 @@ itineraries.each do |itinerary|
   # Parsing the raw answer to a hash with HTTParty function parsed_response.
   parsed_itinerary = raw_itinerary.parsed_response
   title = parsed_itinerary["oois"]["tour"]["title"]
-  p title
   description = parsed_itinerary["oois"]["tour"]["longText"]
-  p description
+  poi = parsed_itinerary["oois"]["tour"]["geometry"].split(" ")
+  hashed_poi = Hash.new
+  hashed_components = Hash.new
+  counter = 1
+  poi.each do |point|
+    # Each point is a hash of lat, long and alt. All points are stored in a hash.
+    hashed_components["long"] = point.split(",")[0].to_f
+    hashed_components["lat"] = point.split(",")[1].to_f
+    hashed_components["alt"] = point.split(",")[2].to_i
+    hashed_poi[counter] = hashed_components
+    counter += 1
+  end
 
+  latitude = hashed_poi[1]["lat"]
+  longitude = hashed_poi[1]["long"]
   p "End of itinerary"
+  exit
 end
 puts "countries are seeded"
-
-
 
