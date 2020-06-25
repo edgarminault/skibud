@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_18_101556) do
+ActiveRecord::Schema.define(version: 2020_06_25_123350) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
@@ -30,6 +31,13 @@ ActiveRecord::Schema.define(version: 2020_06_18_101556) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string "title"
+    t.string "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "itineraries", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -37,6 +45,9 @@ ActiveRecord::Schema.define(version: 2020_06_18_101556) do
     t.float "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.hstore "poi", default: {}, null: false
+    t.bigint "country_id", null: false
+    t.index ["country_id"], name: "index_itineraries_on_country_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,4 +68,5 @@ ActiveRecord::Schema.define(version: 2020_06_18_101556) do
 
   add_foreign_key "activities", "itineraries"
   add_foreign_key "activities", "users"
+  add_foreign_key "itineraries", "countries"
 end
