@@ -23,7 +23,7 @@ countries_json.each do |node|
   title = node[1]
   code = node[0]
   country = Country.new(title: title, code: code)
-  country.save!git
+  country.save!
   p "#{title} saved."
 end
 puts "Countries created."
