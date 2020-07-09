@@ -13,6 +13,32 @@ require 'json'
 puts "Cleaning database..."
 Itinerary.destroy_all
 Country.destroy_all
+User.destroy_all
+
+
+puts "Creating users..."
+first_name = "Edgar"
+last_name = "Minault"
+description = "24yo French-Swiss skitouring amateur."
+nickname = "edgouze"
+email = "edgarpaul.minault@gmail.com"
+password = "password"
+
+user = User.new(
+  first_name: first_name,
+  last_name: last_name,
+  description: description,
+  nickname: nickname,
+  email: email,
+  password: password
+)
+
+if user.valid?
+  user.save!
+  puts "User #{user.first_name} #{user.last_name} created ! 🙌"
+else
+  puts "User not created due to duplicate data 😢"
+end
 
 puts "Creating countries..."
 countries_url = 'https://gist.githubusercontent.com/ssskip/5a94bfcd2835bf1dea52/raw/aeed5b0cb3a7eda19e614915c3d88ce113e4a914/ISO3166-1.alpha2.json'
