@@ -25,6 +25,8 @@ gem 'pry'
 
 gem 'httparty'
 
+gem 'geocoder'
+
 gem 'translation'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
