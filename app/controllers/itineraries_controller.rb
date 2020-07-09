@@ -1,10 +1,11 @@
 class ItinerariesController < ApplicationController
   def index
     @itineraries = Itinerary.order("RANDOM()").all
-    @markers = @flats.map do |map|
+    @markers = @itineraries.map do |itinerary|
       {
-        lat: flat.latitude,
-        long: flat.lomngitude
+        lat: itinerary.latitude,
+        long: itinerary.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { itinerary: itinerary })
       }
     end
   end
