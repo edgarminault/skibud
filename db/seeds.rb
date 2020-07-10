@@ -71,7 +71,7 @@ itineraries.each do |itinerary|
   title = parsed_itinerary["oois"]["tour"]["title"]
   p title
   card_title_regex = /(^.*?)\ \(/
-  title.match(card_title_regex) == nil ? card_title = title : card_title = title.match(card_title_regex)[1]
+  title.match(card_title_regex) == nil ? card_title = title : card_title = title.match(card_title_regex)[1]It
   description = parsed_itinerary["oois"]["tour"]["longText"]
   poi = parsed_itinerary["oois"]["tour"]["geometry"].split(" ")
   hashed_poi = Hash.new
