@@ -69,8 +69,9 @@ itineraries.each do |itinerary|
   # Parsing the raw answer to a hash with HTTParty function parsed_response.
   parsed_itinerary = raw_itinerary.parsed_response
   title = parsed_itinerary["oois"]["tour"]["title"]
-  cartd_title_regex =  = /(^.*?)\ \(/
-  card_title = title.match(card_title_regex)[1]
+  p title
+  card_title_regex = /(^.*?)\ \(/
+  title.match(card_title_regex) == nil ? card_title = title : card_title = title.match(card_title_regex)[1]
   description = parsed_itinerary["oois"]["tour"]["longText"]
   poi = parsed_itinerary["oois"]["tour"]["geometry"].split(" ")
   hashed_poi = Hash.new

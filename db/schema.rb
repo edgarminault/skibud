@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_182714) do
+ActiveRecord::Schema.define(version: 2020_07_10_095022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_182714) do
     t.hstore "poi", default: {}, null: false
     t.bigint "country_id", null: false
     t.string "address"
+    t.string "card_title"
     t.index ["country_id"], name: "index_itineraries_on_country_id"
   end
 
