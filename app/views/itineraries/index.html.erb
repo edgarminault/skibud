@@ -1,14 +1,16 @@
-<div class="main-container">
+<div class="itineraries-index-container">
 
   <!-- Itinerary cards container -->
-  <div class="itineraries-container">
-    <div class="cards">
-      <% @itineraries.each do |itinerary| %>
-        <%= render 'shared/itinerary-card', itinerary: itinerary %>
-      <% end %>
-    </div>
+  <div class="cards">
+    <% @itineraries.each do |itinerary| %>
+      <%= render 'shared/itinerary-card', itinerary: itinerary %>
+    <% end %>
   </div>
 
   <!-- Mapbox container -->
-  
+  <div id="map"
+       style="width: 100%; height: 600px;"
+       data-markers="<%= @markers.to_json %>"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
 </div>
