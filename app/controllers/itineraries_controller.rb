@@ -5,7 +5,7 @@ class ItinerariesController < ApplicationController
       {
         lat: itinerary.latitude,
         long: itinerary.longitude,
-        infoWindow: render_to_string(partial: "infowindow", locals: { itinerary: itinerary })
+        infoWindow: render_to_string(partial: "info_window", locals: { itinerary: itinerary })
       }
     end
   end
